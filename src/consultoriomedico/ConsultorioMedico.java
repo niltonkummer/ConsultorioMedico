@@ -5,7 +5,6 @@
 package consultoriomedico;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -21,9 +20,9 @@ public class ConsultorioMedico {
     static ArrayList<Consulta> consultas = new ArrayList<>();
 
     public static void main(String[] args) {
-        boolean rodando = true;
-        while (rodando) {
-            String option = JOptionPane.showInputDialog("Escolha uma opção:\n"
+        String option = new String() ;
+        do  {
+            option = JOptionPane.showInputDialog("Escolha uma opção:\n"
                     + "Cadastro de Paciente = 1\n"
                     + "Cadastro de Medicamento = 2\n"
                     + "Agendamento de consultas = 3\n"
@@ -31,6 +30,10 @@ public class ConsultorioMedico {
                     + "Histórico = 5");
             try {
                 switch (option) {
+                    case "0":
+                        System.out.println("Saindo");
+                        break;
+                        
                     case "1":
                         System.out.println("Cadastro de Paciente");
                         cadastraPaciente();
@@ -45,14 +48,13 @@ public class ConsultorioMedico {
                         System.out.println("Agendamento de consultas");
                         agendaConsulta();
                         break;
-                    default:
-                        System.out.println("Opção desconhecida");
-                        break;
                 }
             } catch (Exception e) {
                 System.exit(0);
             }
-        }
+            System.out.println(option.equals("0"));
+        }while(!option.equals("0"));
+        System.exit(0);
     }
 
     static void cadastraPaciente() {

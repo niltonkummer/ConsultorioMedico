@@ -27,16 +27,6 @@ public class ConsultorioMedico {
 
     public static void main(String[] args) {
 
-        HashMap<String,String> hash = new HashMap<>();
-        Date data = new Date();
-        String dataString = data.toString();
-        hash.put(dataString, "asdasd");
-        System.out.println(hash.get(dataString));
-        
-        System.exit(0);
-        
-        
-        
         String option = new String();
         option = "0";
         do {

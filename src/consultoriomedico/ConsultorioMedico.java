@@ -4,9 +4,15 @@
  */
 package consultoriomedico;
 
+import consultoriomedico.Entidades.Agenda;
+import consultoriomedico.Entidades.Medicamento;
+import consultoriomedico.Entidades.Paciente;
+import consultoriomedico.Entidades.Consulta;
 import java.util.ArrayList;
+import java.util.Date;
+
 import java.util.HashMap;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -16,13 +22,26 @@ public class ConsultorioMedico {
 
     static ArrayList<Paciente> pacientes = new ArrayList<>();
     static ArrayList<Medicamento> medicamentos = new ArrayList<>();
-    static HashMap<String, String> agendamentos = new HashMap<>();
+    static Agenda agendamentos = new Agenda();
     static ArrayList<Consulta> consultas = new ArrayList<>();
 
     public static void main(String[] args) {
-        String option = new String() ;
-        do  {
+
+        HashMap<String,String> hash = new HashMap<>();
+        Date data = new Date();
+        String dataString = data.toString();
+        hash.put(dataString, "asdasd");
+        System.out.println(hash.get(dataString));
+        
+        System.exit(0);
+        
+        
+        
+        String option = new String();
+        option = "0";
+        do {
             option = JOptionPane.showInputDialog("Escolha uma opção:\n"
+                    + "Sair = 0\n"
                     + "Cadastro de Paciente = 1\n"
                     + "Cadastro de Medicamento = 2\n"
                     + "Agendamento de consultas = 3\n"
@@ -33,7 +52,7 @@ public class ConsultorioMedico {
                     case "0":
                         System.out.println("Saindo");
                         break;
-                        
+
                     case "1":
                         System.out.println("Cadastro de Paciente");
                         cadastraPaciente();
@@ -53,8 +72,7 @@ public class ConsultorioMedico {
                 System.exit(0);
             }
             System.out.println(option.equals("0"));
-        }while(!option.equals("0"));
-        System.exit(0);
+        } while (!option.equals("0"));
     }
 
     static void cadastraPaciente() {
@@ -62,6 +80,10 @@ public class ConsultorioMedico {
         ArrayList<String> camposValue = new ArrayList<String>();
         for (String item : camposLabel) {
             String option = JOptionPane.showInputDialog("Informe o seu " + item + ":");
+            if (item.equals("RG") && verificaPacienteCadastrado(option)){
+                JOptionPane.showMessageDialog(null, "Paciente já cadastrado");
+                return;
+            }
             if (option == null) {
                 JOptionPane.showMessageDialog(null, "Cadastro de paciente cancelado");
                 return;
@@ -100,19 +122,33 @@ public class ConsultorioMedico {
                 return;
             }
         }
-        
-        String lista = listaPacientes();
-        String option = JOptionPane.showInputDialog("Lista de Pacientes:\n"
-                + lista +"\n"
-                + "Informe um paciente:");
-        option = JOptionPane.showInputDialog("Informe o horario:");
 
+        String lista = listaPacientes();
+        String pacienteID = JOptionPane.showInputDialog("Lista de Pacientes:\n"
+                + lista + "\n"
+                + "Informe um paciente:");
+        if (verificaPacienteCadastrado(pacienteID)){
+            JOptionPane.showMessageDialog(null, "Paciente já cadastrado");
+            return;
+        }
+        String horario = JOptionPane.showInputDialog("Informe o horario:");
+        Date date = new Date(2015,1,1);
+        System.out.println(date);
     }
-    
+
+    static boolean verificaPacienteCadastrado(String pacienteID) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getRg().equals(pacienteID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static String listaPacientes() {
         String result = new String();
         for (Paciente paciente : pacientes) {
-            result += paciente.getRg()+ " - "+paciente.getNome()+"\n";
+            result += paciente.getRg() + " - " + paciente.getNome() + "\n";
         }
         return result;
     }

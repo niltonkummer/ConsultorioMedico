@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package consultoriomedico;
+package consultoriomedico.Entidades;
 
-import sun.util.calendar.BaseCalendar;
+import java.util.Date;
 
 /**
  *
@@ -13,13 +13,24 @@ import sun.util.calendar.BaseCalendar;
 public class Consulta {
     
     private String prontuario;
-    private String receituario;
+    private Paciente paciente;
+    private Receituario receituario;
     private boolean finalizada; 
+    private Date data;
     
-    public Consulta() {
-        
+    public Consulta(Paciente paciente, Date data) {
+        this.paciente = paciente;
+        this.data = data;
     }
 
+    public void definirReceituario(Receituario receituario) {
+        
+    }
+    
+    public void finalizarConsulta() {
+        
+    }
+    
     /**
      * @return the prontuario
      */
@@ -37,15 +48,8 @@ public class Consulta {
     /**
      * @return the receituario
      */
-    public String getReceituario() {
+    public Receituario getReceituario() {
         return receituario;
-    }
-
-    /**
-     * @param receituario the receituario to set
-     */
-    public void setReceituario(String receituario) {
-        this.receituario = receituario;
     }
 
     /**
@@ -56,9 +60,9 @@ public class Consulta {
     }
 
     /**
-     * @param finalizada the finalizada to set
+     * @return the data
      */
-    public void setFinalizada(boolean finalizada) {
-        this.finalizada = finalizada;
+    public Date getData() {
+        return data;
     }
 }
